@@ -1,0 +1,5 @@
+# Project build directories
+client/public/
+
+# Dependency directories
+node_modules/
