@@ -20,6 +20,16 @@ const styles = theme => ({
     }
 });
 
+function sizing(size){
+    if(size == "LARGE"){
+        return {xs: 12, sm: 12, md: 12, xl: 12};
+    }
+    if(size == "MEDIUM"){
+        return {xs: 12, sm: 12, md: 8, xl: 6};
+    }
+    return {xs: 12, sm: 6, md: 4, xl: 3};
+}
+
 function Dashboard(props){
     const data = [
       {x: 1, y: 12},
@@ -29,10 +39,11 @@ function Dashboard(props){
       {x: 5, y: 10},
     ];
     const {classes, theme, width} = props;
+    const s = ["LARGE", "MEDIUM", "SMALL", "SMALL", "SMALL"];
     return (
-        <Grid container className={classes.root} spacing={24}>
+        <Grid container className={classes.root} spacing={16}>
             {[...Array(5).keys()].map(i=>(
-                <Grid item key={i} style={{height:'200px'}} xs={12} sm={6} md={3}>
+                <Grid item key={i} style={{height:'250px'}} {...sizing(s[i])}>
                     <Paper className={classes.paper}>
                         <FlexibleXYPlot margin={{left: 25, right: 25, top: 10, bottom: 25}}>
                             <VerticalGridLines/>

@@ -11,12 +11,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import SettingsInputComponentIcon from '@material-ui/icons/SettingsInputComponent';
+import Typography from '@material-ui/core/Typography';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import Typography from '@material-ui/core/Typography';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import SettingsInputComponentIcon from '@material-ui/icons/SettingsInputComponent';
+import MemoryIcon from '@material-ui/icons/Memory';
 
 const drawerWidth = 320;
 
@@ -75,12 +76,15 @@ class MenuList extends React.Component{
             <List disablePadding={level>0}>
                 {items.map((item, index)=>{
                     const hasItems = !!item.items;
+                    const hasIcon = !!item.icon;
                     const isOpen = isOpenByIndex[index] || false;
                     const onClick = hasItems ? e=>this.handleCollapse(e, index) : item.onClick;
                     return (
                         <React.Fragment key={index}>
                             <ListItem button onClick={onClick} className={className}>
-                                <ListItemIcon><item.icon/></ListItemIcon>
+                                {hasIcon ? (
+                                    <ListItemIcon><item.icon/></ListItemIcon>
+                                ) : null}
                                 <ListItemText primary={item.text} />
                                 {hasItems ? (
                                     isOpen ? <ExpandLess /> : <ExpandMore />
@@ -113,17 +117,19 @@ function CoreSideMenu(props){
             items : [
                 {
                     text : "Overview",
-                    icon : DashboardIcon,
                 },
                 {
                     text : "Overview",
-                    icon : DashboardIcon,
                 },
             ]
         },
         {
-            text : "Things",
+            text : "Logic Rules",
             icon : SettingsInputComponentIcon
+        },
+        {
+            text : "Things",
+            icon : MemoryIcon
         },
     ];
 

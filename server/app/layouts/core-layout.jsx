@@ -79,6 +79,8 @@ class CoreLayout extends React.Component{
         const {isMenuOpen} = this.state;
         const isMenuStatic = isWidthUp('md', width);
 
+        console.log(width, isMenuStatic);
+
         return (
             <div className={classes.root}>
                 <CoreSideMenu
@@ -97,6 +99,7 @@ class CoreLayout extends React.Component{
                         })}
                         onClickMenu={this.handleMenuToggle}
                         isStatic={isMenuStatic}
+                        title={"Dashboard"}
                         />
                     <div className={classes.content}>
                         {children}
