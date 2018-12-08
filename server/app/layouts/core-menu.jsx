@@ -27,9 +27,9 @@ const styles = theme => ({
 });
 
 function CoreMenu(props){
-    const {classes, onClickMenu} = props;
+    const {classes, className, isStatic, onClickMenu} = props;
     return (
-        <TopBar>
+        <TopBar className={className} isStatic={isStatic}>
             <Toolbar>
                 <IconButton className={classNames(classes.leftButton)} color="inherit" aria-label="Menu" onClick={onClickMenu}>
                     <MenuIcon/>
@@ -45,6 +45,8 @@ function CoreMenu(props){
 
 CoreMenu.propTypes = {
     classes: PropTypes.object.isRequired,
+    className: PropTypes.string,
+    isStatic: PropTypes.bool,
     onClickMenu: PropTypes.func.isRequired
 };
 

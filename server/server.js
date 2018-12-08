@@ -2,8 +2,16 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+const api = require('./api');
+
+// serve static content with bundle
 app.use(express.static('public'));
 
-app.get('/*', (req, res) => res.sendFile(__dirname+'/static/index.html'));
+// serve api
+app.use('/api', api);
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+// serve webapp
+app.get('/*', (req, res)=>res.sendFile(__dirname+'/static/index.html'));
+
+// start the server
+app.listen(port, ()=>console.log(`Example app listening on port ${port}!`));

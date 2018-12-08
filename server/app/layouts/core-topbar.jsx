@@ -50,14 +50,24 @@ class TopBar extends React.PureComponent{
         this.lastScroll = scroll;
     }
     render(){
-        const {classes, className, children} = this.props;
+        const {classes, className, isStatic, children} = this.props;
         const {shouldShow} = this.state;
+        const show = isStatic || shouldShow;
         return (
-            <AppBar position="fixed" className={classNames(className, classes.root, shouldShow ? classes.show : classes.hide)}>
+            <AppBar
+                position="fixed"
+                className={classNames(className, classes.root, show ? classes.show : classes.hide)}>
                 {children}
             </AppBar>
         );
     }
 }
+
+TopBar.propTypes = {
+    classes: PropTypes.object.isRequired,
+    className: PropTypes.string,
+    children: PropTypes.node.isRequired,
+    isStatic: PropTypes.bool
+};
 
 export default withStyles(styles)(TopBar);

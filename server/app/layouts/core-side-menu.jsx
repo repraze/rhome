@@ -23,10 +23,12 @@ const drawerWidth = 320;
 const styles = theme => ({
     drawer: {
         width: drawerWidth,
+        maxWidth: '100vw',
         flexShrink: 0,
     },
     drawerPaper: {
         width: drawerWidth,
+        maxWidth: '100vw',
     },
     grow: {
         flexGrow: 1,
@@ -102,7 +104,7 @@ MenuList.defaultProps = {
 }
 
 function CoreSideMenu(props){
-    const {classes, isMenuOpen, onClickMenu} = props;
+    const {classes, isStatic, isOpen, onClickMenu} = props;
 
     const items = [
         {
@@ -120,7 +122,7 @@ function CoreSideMenu(props){
             ]
         },
         {
-            text : "Logic Rules",
+            text : "Things",
             icon : SettingsInputComponentIcon
         },
     ];
@@ -129,7 +131,8 @@ function CoreSideMenu(props){
         <Drawer
             className={classes.drawer}
             anchor="left"
-            open={isMenuOpen}
+            variant={isStatic ? "persistent" : "temporary"}
+            open={isOpen}
             onClose={onClickMenu}
             classes={{
                 paper: classes.drawerPaper,
@@ -149,7 +152,8 @@ function CoreSideMenu(props){
 
 CoreSideMenu.propTypes = {
     classes: PropTypes.object.isRequired,
-    isMenuOpen: PropTypes.bool,
+    isStatic: PropTypes.bool,
+    isOpen: PropTypes.bool,
     onClickMenu: PropTypes.func.isRequired
 };
 
