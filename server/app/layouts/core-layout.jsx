@@ -22,6 +22,7 @@ const styles = theme => ({
         paddingTop: 64
     },
     topStatic: {
+        width: 'auto',
         transition: theme.transitions.create('left', {
             easing: theme.transitions.easing.easeIn,
             duration: theme.transitions.duration.leavingScreen,
@@ -66,20 +67,23 @@ class CoreLayout extends React.Component{
         const isMenuStatic = isWidthUp('md', props.width);
 
         this.state = {
-            isMenuOpen : isMenuStatic ? true : false
+            isMenuOpen : isMenuStatic ? true : false,
+            dashboards : []
         };
 
         this.handleMenuToggle = this.handleMenuToggle.bind(this);
+    }
+    async componentDidMount(){
+        const response = await (await fetch('http://192.168.1.175:3000/api/dashboards')).json();
+        this.setState({dashboards : response.dashboards});
     }
     handleMenuToggle(){
         this.setState({isMenuOpen: !this.state.isMenuOpen});
     }
     render(){
-        const {classes, children, width} = this.props;
-        const {isMenuOpen} = this.state;
+        const {classes, children, title, width} = this.props;
+        const {isMenuOpen, dashboards} = this.state;
         const isMenuStatic = isWidthUp('md', width);
-
-        console.log(width, isMenuStatic);
 
         return (
             <div className={classes.root}>
@@ -87,6 +91,7 @@ class CoreLayout extends React.Component{
                     onClickMenu={this.handleMenuToggle}
                     isOpen={isMenuOpen}
                     isStatic={isMenuStatic}
+                    dashboards={dashboards}
                     />
                 <div className={classNames(classes.main, {
                         [classes.mainStatic] : isMenuStatic,
@@ -99,7 +104,7 @@ class CoreLayout extends React.Component{
                         })}
                         onClickMenu={this.handleMenuToggle}
                         isStatic={isMenuStatic}
-                        title={"Dashboard"}
+                        title={title}
                         />
                     <div className={classes.content}>
                         {children}
@@ -112,6 +117,8 @@ class CoreLayout extends React.Component{
 
 CoreLayout.propTypes = {
     classes: PropTypes.object.isRequired,
+    children: PropTypes.node.isRequired,
+    title: PropTypes.string,
 };
 
 export default withStyles(styles)(withWidth()(CoreLayout));

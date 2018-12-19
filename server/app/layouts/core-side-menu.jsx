@@ -108,20 +108,17 @@ MenuList.defaultProps = {
 }
 
 function CoreSideMenu(props){
-    const {classes, isStatic, isOpen, onClickMenu} = props;
+    const {classes, isStatic, isOpen, onClickMenu, dashboards} = props;
+
+    const dashboardItems = dashboards.map(d=>({
+        text : d.name
+    }));
 
     const items = [
         {
             text : "Dashboards",
             icon : DashboardIcon,
-            items : [
-                {
-                    text : "Overview",
-                },
-                {
-                    text : "Overview",
-                },
-            ]
+            items : dashboardItems
         },
         {
             text : "Logic Rules",
